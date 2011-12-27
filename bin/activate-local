@@ -1,0 +1,18 @@
+__ns() {
+    local environment_dev="$(dirname "$VIRTUAL_ENV")"/environment.dev
+    if [ -x "$environment_dev" ]; then
+        eval "$("$environment_dev")"
+    else
+        $(sed -e 's/^/export /' < "$environment_dev")
+    fi
+}
+__ns
+
+rebootstrap() {
+    [ -z "$VIRTUAL_ENV" ] && return 1
+    cd $(dirname "$VIRTUAL_ENV") || return 2
+    [ ! -f bin/bootstrap ] && return 3
+    deactivate
+    rm -fr .venv || return 4
+    source bin/bootstrap
+}

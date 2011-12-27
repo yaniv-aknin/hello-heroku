@@ -1,0 +1,3 @@
+deps/django/.git
+deps/django/tests
+deps/django/docs

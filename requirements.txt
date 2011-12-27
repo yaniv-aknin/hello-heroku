@@ -1,0 +1,4 @@
+#@prefix -e 
+./deps/django
+psycopg2==2.4.4
+gunicorn==0.13.4
