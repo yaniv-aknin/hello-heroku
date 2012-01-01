@@ -36,13 +36,17 @@ While development requirements and production requirements are slightly differen
 
 Rather than littering your code with environment defeaults (i.e., os.environ.get('DEBUG', 'TRUE')), there's an explicit environment.dev file. If it's a _plain_ file, it's expected to contain key=value lines (quote values if necessary) that will be sourced every time you activate. If it's an _executable_, its output will be `eval`uated when you activate, you can do anything there.
 
+### Static files ###
+
+Probably the most opinionated thing in this repository is the way I opted to handle static files, which is rather unorthodox. You can read my lengthy lamentation regarding static asset management [here](http://tech.blog.aknin.name/2011/12/28/i-wish-someone-wrote-django-static-upstream-maybe-even-me/), but it all boils down to my feeling that a modern website has static assets that aren't static at all, and hence I wrote [django-static-upstream](https://github.com/yaniv-aknin/django-static-upstream), a package that aims to treat what are conventionally static assets as dynamic assets. The good news is that you clone this repo and do the quickstart as outlined above, and wham, you have something that works in development and production (for very, very convenient values of "production", like, a blog). There are *significant* things to do if you want this to work in production in a manner that I'd agree with, like putting a caching reverse proxy in front of your static serving URLs and settings `RELEASE_ID` properly in your django `settings.py` file. You will be able to read more about this (and should do that!) in `django-static-upstream`'s documentation, once it will have any. Sometime. Hopefully.
+
+
 ### Submodules ###
 
 Not exactly a feature I implemented, but a demonstration of how I chose to use Heroku's [submodule lab feature](http://devcenter.heroku.com/articles/git-submodules) and the ability to customize `requirements.txt` in development vs. production so that I'll have an editable django module, in case you (like me) needed a couple of inescapable django patches and bugfix backports. Also note that there's a `.slugignore` file that takes care of removing cruft (`.git`, tests, documentation) from the django submodule in order to [keep slug size down](http://devcenter.heroku.com/articles/slug-size). Naturally, this isn't limited just to django.
 
 ## Planned features ##
 
-* sample integration with [django-static-upstream](https://github.com/yaniv-aknin/django-static-upstream), the solution I'm currently using to solve my [frustration](http://tech.blog.aknin.name/2011/12/28/i-wish-someone-wrote-django-static-upstream-maybe-even-me/) with serving of static files, which got eerily dynamic as of late.
 * sample usage of more Heroku addons (postgres, redis, scheduler, etc)
 
 ## Caveats ##

@@ -1,4 +1,6 @@
 #@prefix -e 
 ./deps/django
+#@prefix -e 
+./deps/django-static-upstream
 psycopg2==2.4.4
 gunicorn==0.13.4

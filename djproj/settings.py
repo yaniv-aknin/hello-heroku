@@ -17,9 +17,9 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
     'gunicorn',
     'djapp',
+    'supstream',
 )
 
 DATABASES = {
@@ -36,13 +36,8 @@ DATABASES = {
 MEDIA_ROOT = ''
 MEDIA_URL = ''
 
-STATIC_ROOT = ''
-STATIC_URL = '/static/'
-STATICFILES_DIRS = ()
-STATICFILES_FINDERS = (
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-)
+STATIC_ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static')
+STATIC_URL = '/static'
 
 TIME_ZONE = 'UTC'
 LANGUAGE_CODE = 'en-us'

@@ -1,3 +1,6 @@
 [submodule "deps/django"]
 	path = deps/django
 	url = git@github.com:django/django.git
+[submodule "deps/django-static-upstream"]
+	path = deps/django-static-upstream
+	url = git@github.com:yaniv-aknin/django-static-upstream.git
