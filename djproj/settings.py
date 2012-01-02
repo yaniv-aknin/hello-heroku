@@ -87,3 +87,10 @@ LOGGING = {
         },
     }
 }
+
+try:
+    with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'SLUG_UUID')) as handle:
+        RELEASE_ID=handle.read().strip()
+except IOError:
+    pass
+
