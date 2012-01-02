@@ -1,5 +1,6 @@
 DJANGO_DEBUG=True
 DJANGO_SECRET_KEY="pagq17ryp3&ow=#8l^xksl_48!9-16x!mrbbr3_qf@*p)+=r+%"
+DATABASE_URL=sqlite://sqlite/.venv/audish.sqlite
 PORT=5001
 DOMAIN=example.com
 NETLOC_SUFFIX=
