@@ -1,0 +1,10 @@
+#!python
+from os import environ
+
+bind = "0.0.0.0:%s" % (environ['PORT'],)
+workers = 4
+def on_starting(server):
+    # for a server with such a nice hooking framework, gunicorn sure has odd logging customization;
+    # I found it /much/ easier to do this change from here than using logger_class
+    server.log.error_fmt = r"[%(process)d] [%(levelname)s] %(message)s"
+    server.log.setup(server.app.cfg)
