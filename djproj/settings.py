@@ -1,10 +1,12 @@
 import os
+import socket
 env = lambda key, returntype=str: returntype(os.environ[key])
 
 DEBUG = env('DJANGO_DEBUG', bool)
 TEMPLATE_DEBUG = DEBUG
 
 MIDDLEWARE_CLASSES = (
+    'supstream.middleware.VHostMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -33,11 +35,18 @@ DATABASES = {
     }
 }
 
-MEDIA_ROOT = ''
-MEDIA_URL = ''
+DOMAIN = env('DOMAIN')
+if os.environ['NETLOC_SUFFIX']:
+    NETLOC_SUFFIX = env('NETLOC_SUFFIX')
+else:
+    NETLOC_SUFFIX = '%s.%s:%s' % (socket.gethostname().split('.')[0], DOMAIN, os.environ['PORT'])
+HOST_SUFFIX = NETLOC_SUFFIX.split(':')[0]
 
 STATIC_ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static')
-STATIC_URL = '/static'
+STATIC_URL = '//static.' + NETLOC_SUFFIX
+
+MEDIA_ROOT = ''
+MEDIA_URL = ''
 
 TIME_ZONE = 'UTC'
 LANGUAGE_CODE = 'en-us'
@@ -56,7 +65,10 @@ TEMPLATE_LOADERS = (
 TEMPLATE_DIRS = (
 )
 
-ROOT_URLCONF = 'djproj.urls'
+ROOT_URLCONF = 'djproj.urls.root'
+VHOST_URLCONFS = dict(
+    static = 'djproj.urls.static',
+)
 
 LOGGING = {
     'version': 1,
