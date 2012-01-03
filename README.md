@@ -19,8 +19,11 @@ A skeleton project for running a django project on Heroku. While Heroku have [of
 
     heroku create -s cedar --buildpack https://github.com/Audish/heroku-buildpack-python.git
     heroku labs:enable git_submodules -a <app_name>
+    heroku config:add <relevant configuration items>
     git push heroku master
     heroku open
+
+If you're not sure what are the `relevant configuration items` above, run the heroku-config helper to see what environment variables you have in development. Only some of them are relevant for a heroku deployment, I'll make this easier in a later release.
 
 ## Features ##
 

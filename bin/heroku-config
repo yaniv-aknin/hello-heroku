@@ -1,0 +1,17 @@
+#!/usr/bin/env python
+
+import os
+
+ENVIRONMENT_DEV=os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'environment.dev')
+
+keys = []
+
+with open(ENVIRONMENT_DEV) as handle:
+    for line in handle:
+        key, value = line.strip().split('=', 1)
+        for quote in '\'"':
+            if value.startswith(quote) and value.endswith(quote):
+                value = value[1:-1]
+                break
+        keys.append(key)
+    print "heroku config:add " + " ".join("%s= " % (key,) for key in keys)
