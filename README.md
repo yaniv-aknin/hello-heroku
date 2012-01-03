@@ -11,7 +11,7 @@ A skeleton project for running a django project on Heroku. While Heroku have [of
 
 ### Development ###
 
-    source bin/activate
+    source bin/bootstrap
     foreman start
     open http://localhost:5000
 
