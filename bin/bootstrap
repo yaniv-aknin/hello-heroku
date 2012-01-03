@@ -56,7 +56,6 @@ EOF
     for filename in bin/*; do
         [ -x "$filename" ] && ln -s ../../"$filename" .venv/bin
     done
-    [ ! -e .env ] && ln -s environment.dev .env
 
     __log 'installing development requirements'
     pip install -r <(./requirements.txt.dev)
