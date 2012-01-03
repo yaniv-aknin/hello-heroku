@@ -5,7 +5,7 @@ __ns() {
     __log() { echo $'\e[1;37m'"bootstrap: $@"$'\e[0m'; }
     __complain() { echo $'\e[1;31m'"bootstrap: $@"$'\e[0m'; }
     __warn() { echo $'\e[1;33m'"bootstrap: $@"$'\e[0m'; }
-    __hint() { [ $(uname) = "$1" ] && __log "perhaps this would help: $2"; }
+    __hint() { [ All = "$1" -o $(uname) = "$1" ] && __log "perhaps this would help: $2"; }
 
 
     if [ ! -e bin/bootstrap ] || ! grep magic-13f78f843201-magic bin/bootstrap > /dev/null; then
@@ -20,6 +20,17 @@ __ns() {
         return 1
     fi
 
+    if ! which foreman > /dev/null || ! which heroku > /dev/null; then
+        __complain "missing foreman or heroku; please install them"
+        local gemok=$(python -c "from distutils.version import StrictVersion as v ; print v('$(gem -v)') > v('1.3.5')")
+        if [ $(uname) == "Darwin" -a $gemok != "True" ]; then
+            __hint Darwin "sudo gem update --system"
+        elif [ $(name) == "Linux" ] && ! which gem > /dev/null; then
+            __hint Linux "apt-get install rubygems"
+        fi
+        __hint All "sudo gem install foreman heroku"
+        return 1
+    fi
 
     __log 'updating submodules'
     git submodule update --init
